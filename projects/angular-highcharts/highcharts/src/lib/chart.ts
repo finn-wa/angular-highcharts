@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { ChartWrapper } from 'angular-highcharts';
 import { AsyncSubject, Observable } from 'rxjs';
 
 /**
@@ -14,7 +15,7 @@ import { AsyncSubject, Observable } from 'rxjs';
  */
 export type Point = number | [number, number] | Highcharts.Point;
 
-export class Chart {
+export class Chart implements ChartWrapper<Highcharts.Chart> {
   private refSubject: AsyncSubject<Highcharts.Chart> = new AsyncSubject();
   ref$: Observable<Highcharts.Chart> = this.refSubject.asObservable();
   ref: Highcharts.Chart;

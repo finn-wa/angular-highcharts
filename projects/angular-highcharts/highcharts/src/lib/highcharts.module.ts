@@ -6,17 +6,18 @@
  * found in the LICENSE file at
  * https://github.com/cebor/angular-highcharts/blob/master/LICENSE
  */
-import { NgModule } from '@angular/core';
-import { ChartDirective } from './chart.directive';
-import { ChartService, HIGHCHARTS_MODULES } from './chart.service';
+import { NgModule } from "@angular/core";
+import { ChartDirective } from "./chart.directive";
+import { ChartService, HIGHCHARTS_MODULES } from "./chart.service";
 
+/**
+ * Provides the ChartDirective for including charts in an Angular template, and
+ * ChartService for injecting Highcharts modules such as `stock` and `more`.
+ */
 @NgModule({
   exports: [ChartDirective],
   declarations: [ChartDirective],
-  providers: [
-    { provide: HIGHCHARTS_MODULES, useValue: [] },
-    ChartService
-  ]
+  providers: [{ provide: HIGHCHARTS_MODULES, useValue: [] }, ChartService],
 })
 export class ChartModule {
   constructor(private cs: ChartService) {
