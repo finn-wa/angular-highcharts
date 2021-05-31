@@ -1,9 +1,3 @@
-import { ElementRef } from '@angular/core';
-//import * as Highcharts from 'highcharts';
-import * as Highstock from 'highcharts/highstock';
-import { AsyncSubject, Observable } from 'rxjs';
-
-
 /**
  * @license
  * Copyright Felix Itzenplitz. All Rights Reserved.
@@ -15,7 +9,12 @@ import { AsyncSubject, Observable } from 'rxjs';
  * @author Felix Itzenplitz
  * @author Timothy A. Perez (contributor)
  */
-export class StockChart {
+import { ElementRef } from '@angular/core';
+import * as Highstock from 'highcharts/highstock';
+import { ChartWrapper } from 'angular-highcharts';
+import { AsyncSubject, Observable } from 'rxjs';
+
+export class StockChart implements ChartWrapper<Highstock.Chart> {
   private refSubject: AsyncSubject<Highstock.Chart> = new AsyncSubject();
   ref$: Observable<Highstock.Chart> = this.refSubject.asObservable();
   ref: Highstock.Chart;
@@ -23,8 +22,9 @@ export class StockChart {
 
   init(el: ElementRef): void {
     if (!this.ref) {
-      Highstock.stockChart(el.nativeElement, this.options, chart => {
-        if (!this.ref) { // TODO: workaround for doubled callbacks on exporting charts: issue #238
+      Highstock.stockChart(el.nativeElement, this.options, (chart) => {
+        if (!this.ref) {
+          // TODO: workaround for doubled callbacks on exporting charts: issue #238
           this.refSubject.next(chart);
           this.ref = chart;
           this.refSubject.complete();

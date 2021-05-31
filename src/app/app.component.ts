@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Chart, StockChart } from 'angular-highcharts';
+import { Chart } from 'angular-highcharts/highcharts';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,9 @@ import { Chart, StockChart } from 'angular-highcharts';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   chart: Chart;
-  stockChart: StockChart;
+  stockChart: Chart;
   hidden = false;
+  title = 'lib-angular-highcharts';
 
   toggle() {
     this.hidden = !this.hidden;
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       ]
     });
 
-    this.stockChart = new StockChart({
+    this.stockChart = new Chart({
       rangeSelector: {
         selected: 1
       },

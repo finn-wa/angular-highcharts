@@ -1,7 +1,3 @@
-import { ElementRef } from '@angular/core';
-import * as Highcharts from 'highcharts';
-import { AsyncSubject, Observable } from 'rxjs';
-
 /**
  * @license
  * Copyright Felix Itzenplitz. All Rights Reserved.
@@ -12,9 +8,14 @@ import { AsyncSubject, Observable } from 'rxjs';
  * @author Felix Itzenplitz
  * @author Timothy A. Perez (contributor)
  */
+import { ElementRef } from '@angular/core';
+import { ChartWrapper } from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import { AsyncSubject, Observable } from 'rxjs';
+
 export type Point = number | [number, number] | Highcharts.Point;
 
-export class Chart {
+export class Chart implements ChartWrapper<Highcharts.Chart> {
   private refSubject: AsyncSubject<Highcharts.Chart> = new AsyncSubject();
   ref$: Observable<Highcharts.Chart> = this.refSubject.asObservable();
   ref: Highcharts.Chart;
